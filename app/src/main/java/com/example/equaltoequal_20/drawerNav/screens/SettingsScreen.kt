@@ -1,4 +1,4 @@
-package com.example.jpsampledrawer.settings
+package com.example.equaltoequal_20.drawerNav.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ fun SettingsScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Settings Screen",  style = MaterialTheme.typography.headlineMedium)
+        Text(text = "Тут будут мои проекты",  style = MaterialTheme.typography.headlineMedium)
         Text(
             text = "This place will soon have a design",
             style = MaterialTheme.typography.bodyLarge
