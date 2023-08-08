@@ -13,14 +13,17 @@ class AppNavigationActions(private val navController: NavHostController) {
 
     fun navigateToHome() {
         navController.navigate(HOME) {
-            popUpTo(HOME)
+            popUpTo(HOME) {
+                inclusive = true
+            }
         }
     }
 
     fun navigateToSettings() {
         navController.navigate(SETTINGS) {
-            launchSingleTop = true
-            restoreState = true
+//            launchSingleTop = true
+//            restoreState = true
+            popUpTo(HOME)
         }
     }
 }
