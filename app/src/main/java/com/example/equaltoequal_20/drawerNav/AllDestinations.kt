@@ -26,4 +26,5 @@ class AppNavigationActions(private val navController: NavHostController) {
             popUpTo(HOME)
         }
     }
+
 }
