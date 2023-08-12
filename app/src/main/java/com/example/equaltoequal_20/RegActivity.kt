@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -30,10 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.equaltoequal_20.regScreens.LogScreen
 import com.example.equaltoequal_20.regScreens.RegScreen
 import com.example.equaltoequal_20.ui.theme.EqualToEqual_20Theme
@@ -60,32 +56,15 @@ class RegActivity : ComponentActivity() {
             }
 
             EqualToEqual_20Theme {
-
-                /*Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Button(onClick = {
-                        val navigate = Intent(this@RegActivity, MainActivity::class.java)
-                        startActivity(navigate)
-                        finish()
-                    }) {
-                        Text(text = "На основную активити")
-                    }
-                }*/
                 NavigationContainer(currentUser)
             }
         }
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun NavigationContainer(
-    currentUser: MutableState<User>,
-    navController: NavHostController = rememberNavController()
+    currentUser: MutableState<User>
 ) {
     var tabIndex by remember { mutableStateOf(0) }
     val tabs = listOf("Log In", "Sign In")
