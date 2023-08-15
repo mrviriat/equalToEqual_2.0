@@ -29,7 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.equaltoequal_20.regScreens.LogScreen
 import com.example.equaltoequal_20.regScreens.RegScreen
 import com.example.equaltoequal_20.ui.theme.EqualToEqual_20Theme
@@ -49,7 +53,7 @@ class RegActivity : ComponentActivity() {
                 mutableStateOf(User("", ""))
             }
 
-            if (currentUser.value.login.isNotEmpty() && currentUser.value.password.isNotEmpty()){
+            if (currentUser.value.login.isNotEmpty() && currentUser.value.password.isNotEmpty()) {
                 val navigate = Intent(this@RegActivity, MainActivity::class.java)
                 startActivity(navigate)
                 finish()
@@ -78,6 +82,7 @@ fun NavigationContainer(
         contentScale = ContentScale.Crop
     )
 
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -85,25 +90,38 @@ fun NavigationContainer(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp)
                 .padding(15.dp)
+                .height(500.dp)
                 .clip(RoundedCornerShape(15.dp))
-                .background(Color.Blue.copy(alpha = 0.2f))
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .align(Alignment.End)
-            ){
+                    .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
+            ) {
                 TabRow(
                     selectedTabIndex = tabIndex,
                     modifier = Modifier
                         .fillMaxWidth(),
-                    containerColor = Color.Transparent
+                    containerColor = Color.Transparent,
+                    indicator = {},
+                    divider = {}
                 ) {
                     tabs.forEachIndexed { index, title ->
+                        var color = Color.Gray
+                        if (index == tabIndex) {
+                            color = Color(0xFF3a4e7a).copy(alpha = 0.9f)
+                        }
                         Tab(
-                            text = { Text(title) },
+                            text = {
+                                Text(
+                                    text = title,
+                                    color = color,
+                                    fontWeight = FontWeight.W600,
+                                    fontSize = 16.sp,
+                                )
+                            },
                             selected = tabIndex == index,
                             onClick = {
                                 tabIndex = index
@@ -116,8 +134,8 @@ fun NavigationContainer(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Blue.copy(alpha = 0.2f))
-            ){
+                    .background(Color(0xFFc2d2e9).copy(alpha = 0.4f))
+            ) {
                 when (tabIndex) {
                     0 -> LogScreen(currentUser)
                     1 -> RegScreen()

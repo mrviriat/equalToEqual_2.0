@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271974854141",
+    "project_id": "equaltoequal-80eb7",
+    "storage_bucket": "equaltoequal-80eb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271974854141:android:deac1b625149b94a5a7d94",
+        "android_client_info": {
+          "package_name": "com.example.equaltoequal_20"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271974854141-9th1c3i164mv778b2p9md1amhj1g9a3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-0GZYj4hrMReGdqijvZRAJXAPVNu_2wU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271974854141-9th1c3i164mv778b2p9md1amhj1g9a3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
