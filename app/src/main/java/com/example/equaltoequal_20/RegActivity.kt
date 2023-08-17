@@ -1,7 +1,9 @@
 package com.example.equaltoequal_20
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -40,7 +42,11 @@ import com.example.equaltoequal_20.ui.theme.EqualToEqual_20Theme
 
 data class User(
     val login: String,
-    val password: String
+    val password: String,
+    val id: Int,
+    val firstName: String,
+    val lastName: String,
+    val groupTitle: String
 )
 
 class RegActivity : ComponentActivity() {
@@ -49,8 +55,17 @@ class RegActivity : ComponentActivity() {
 
 
         setContent {
-            val currentUser = remember {
-                mutableStateOf(User("", ""))
+            var currentUser = remember {
+                mutableStateOf(
+                    User(
+                        "",
+                        "",
+                        0,
+                        "",
+                        "",
+                        ""
+                    )
+                )
             }
 
             if (currentUser.value.login.isNotEmpty() && currentUser.value.password.isNotEmpty()) {
@@ -60,7 +75,7 @@ class RegActivity : ComponentActivity() {
             }
 
             EqualToEqual_20Theme {
-                NavigationContainer(currentUser)
+                NavigationContainer(this, currentUser)
             }
         }
     }
@@ -68,6 +83,7 @@ class RegActivity : ComponentActivity() {
 
 @Composable
 fun NavigationContainer(
+    context: Context,
     currentUser: MutableState<User>
 ) {
     var tabIndex by remember { mutableStateOf(0) }
@@ -137,8 +153,8 @@ fun NavigationContainer(
                     .background(Color(0xFFc2d2e9).copy(alpha = 0.4f))
             ) {
                 when (tabIndex) {
-                    0 -> LogScreen(currentUser)
-                    1 -> RegScreen()
+                    0 -> LogScreen(context, currentUser)
+                    1 -> RegScreen(context, currentUser)
                 }
             }
         }

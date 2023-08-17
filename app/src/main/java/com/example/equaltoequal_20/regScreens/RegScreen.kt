@@ -1,5 +1,7 @@
 package com.example.equaltoequal_20.regScreens
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,11 +26,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.equaltoequal_20.User
+import org.json.JSONObject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegScreen() {
+fun RegScreen(
+    context: Context,
+    currentUser: MutableState<User>
+) {
     val login = remember {
         mutableStateOf("")
     }
@@ -86,7 +96,7 @@ fun RegScreen() {
 
         Button(
             onClick = {
-                //логикааааа!!!!
+                getAPIData(login.value, password.value, context, currentUser)
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f),
@@ -98,4 +108,37 @@ fun RegScreen() {
             Text(text = "Registration")
         }
     }
+}
+
+fun getAPIData(
+    login: String,
+    password: String,
+    context: Context,
+    currentUser: MutableState<User>
+) {
+    val url = "https://api.grsu.by/1.x/app1/getStudent" +
+            "?login=$login" +
+            "&lang=ru_RU"
+    val queue = Volley.newRequestQueue(context)
+    val stringRequest = StringRequest(
+        Request.Method.GET,
+        url,
+        { response ->
+            val obj = JSONObject(response)
+            if (obj.getString("fullname").isNotEmpty()) {
+                currentUser.value = User(
+                    login,
+                    password,
+                    obj.getInt("id"),
+                    obj.getString("fullname").split(" ")[0],
+                    obj.getString("fullname").split(" ")[1],
+                    obj.getString("grouptitle")
+                )
+            }
+        },
+        {
+            Log.d("API", "API error: $it")
+        }
+    )
+    queue.add(stringRequest)
 }
